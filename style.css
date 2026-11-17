@@ -268,3 +268,72 @@
   list-style-position: inside;
 }
 ul ::marker {font-size:inherit;} /* overide imported base styles */
+
+.topics-list {
+    background: #ffffffd9;
+    border: 1.5px solid #cddde7;
+    border-radius: 1.8rem;
+    padding: 1.5rem 1.8rem;
+    margin: 1rem 0 2.5rem;
+    box-shadow: 0 8px 24px -12px rgba(0, 20, 30, 0.15);
+    backdrop-filter: blur(4px);
+    list-style-position: inside;
+    list-style-type: disc;
+    max-height: 460px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #aac7d4 #eef2f6;
+}
+
+/* Optional: nicer scrollbar for WebKit browsers */
+.topics-list::-webkit-scrollbar {
+    width: 8px;
+}
+.topics-list::-webkit-scrollbar-track {
+    background: #eef2f6;
+    border-radius: 12px;
+}
+.topics-list::-webkit-scrollbar-thumb {
+    background: #aac7d4;
+    border-radius: 12px;
+}
+
+/* Individual topic points */
+.topics-list .ex-list-point {
+    padding: 0.35rem 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #1f3a4b;
+    border-bottom: 1px dashed #dbe7ee;
+}
+
+.topics-list .ex-list-point:last-of-type {
+    border-bottom: none;
+}
+
+/* The italic instruction note inside the list */
+.topics-list .ex-list-inside {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #aac7d4;
+    list-style: none;
+    color: #2d5a6e;
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+/* Ensure the note does not show a bullet */
+.topics-list .ex-list-inside i {
+    display: block;
+}
+
+/* Mobile tuning */
+@media (max-width: 600px) {
+    .topics-list {
+        padding: 1.2rem 1rem;
+        max-height: 380px;
+    }
+    .topics-list .ex-list-point {
+        font-size: 0.95rem;
+    }
+}
