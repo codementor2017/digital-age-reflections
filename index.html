@@ -1,123 +1,642 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Age Reflections · Project</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technology Current Events Reflection Compilation</title>
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --panel:#111a30;
+    --panel-2:#16203a;
+    --line:#25325a;
+    --text:#e9eefb;
+    --muted:#98a6c8;
+    --accent:#4de2c2;
+    --accent-2:#7b8cff;
+    --warn:#ffb648;
+  }
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  *{ box-sizing:border-box; }
 
-    <!-- External CSS only -->
-    <link rel="stylesheet" href="style.css">
+  html,body{ margin:0; padding:0; }
+
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(900px 500px at 12% -10%, rgba(123,140,255,.20), transparent 60%),
+      radial-gradient(800px 500px at 88% 0%, rgba(77,226,194,.14), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .page{
+    max-width:1120px;
+    margin:0 auto;
+    padding:48px 22px 80px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    text-align:center;
+    padding:26px 8px 10px;
+  }
+
+  .kicker{
+    display:inline-block;
+    margin:0 0 18px;
+    padding:6px 14px;
+    border:1px solid rgba(77,226,194,.35);
+    border-radius:999px;
+    background:rgba(77,226,194,.08);
+    color:var(--accent);
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+  }
+
+  h1{
+    margin:0 0 18px;
+    font-size:clamp(1.5rem, 4.2vw, 2.75rem);
+    line-height:1.2;
+    letter-spacing:.02em;
+    font-weight:800;
+    background:linear-gradient(100deg, #ffffff 10%, var(--accent) 55%, var(--accent-2) 95%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-transform:uppercase;
+  }
+
+  /* ---------- RESPONSIVE IMAGE AFTER TITLE ---------- */
+  .image-placeholder{
+    /* fluid box: fills the page width and scales with the viewport */
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(4px, 1vw, 12px);
+
+    width:100%;
+    max-width:100%;
+    margin:22px auto 24px;
+    aspect-ratio:16 / 7;
+    min-height:150px;
+    overflow:hidden;
+
+    border:2px dashed var(--line);
+    border-radius:16px;
+    background:
+      linear-gradient(180deg, rgba(17,26,48,.75), rgba(10,15,30,.75)),
+      repeating-linear-gradient(
+        45deg,
+        rgba(77,226,194,.03) 0 10px,
+        rgba(123,140,255,.03) 10px 20px
+      );
+    color:var(--muted);
+    font-size:clamp(.68rem, 1.6vw, .85rem);
+    font-weight:700;
+    letter-spacing:clamp(.06em, .35vw, .14em);
+    text-transform:uppercase;
+    transition:border-color .2s ease, background .2s ease, color .2s ease;
+  }
+
+  .image-placeholder:hover{
+    border-color:var(--accent);
+    background:
+      linear-gradient(180deg, rgba(17,26,48,.7), rgba(10,15,30,.7)),
+      repeating-linear-gradient(
+        45deg,
+        rgba(77,226,194,.06) 0 10px,
+        rgba(123,140,255,.06) 10px 20px
+      );
+    color:var(--accent);
+  }
+
+  /* the actual image: always fills the fluid box, never distorts */
+  .image-placeholder img{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    display:block;
+    width:100%;
+    height:100%;
+    max-width:100%;
+    object-fit:cover;        /* use `contain` if you don't want cropping */
+    object-position:center;
+    border-radius:14px;
+  }
+
+  /* fallback shown only if the image is missing / fails to load */
+  .image-icon{
+    position:relative;
+    z-index:0;
+    font-size:clamp(1.8rem, 6vw, 3.4rem);
+    line-height:1;
+    filter:drop-shadow(0 0 10px rgba(77,226,194,.25));
+  }
+
+  .image-fallback{
+    position:relative;
+    z-index:0;
+  }
+
+  /* Taller box on narrow screens so it doesn't get squashed */
+  @media (max-width:640px){
+    .image-placeholder{
+      aspect-ratio:4 / 3;
+      min-height:180px;
+      border-radius:14px;
+    }
+    .image-placeholder img{ border-radius:12px; }
+  }
+
+  .lede{
+    max-width:760px;
+    margin:0 auto;
+    color:var(--muted);
+    font-size:1.02rem;
+  }
+
+  /* ---------- TASK CALLOUT ---------- */
+  .task{
+    margin:38px 0 46px;
+    padding:22px 26px;
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    border-radius:14px;
+    background:linear-gradient(180deg, rgba(77,226,194,.07), rgba(17,26,48,.85));
+  }
+
+  .task h2{
+    margin:0 0 8px;
+    font-size:.82rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+
+  .task p{
+    margin:0;
+    color:#cfd9f2;
+    font-size:1rem;
+  }
+
+  .task strong{ color:#fff; }
+
+  /* ---------- TOPIC SECTION HEADER ---------- */
+  .topics-head{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:6px;
+  }
+
+  .topics-head h2{
+    margin:0;
+    font-size:1.25rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  .tracker{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 12px 8px 16px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:rgba(17,26,48,.9);
+    font-size:.85rem;
+    color:var(--muted);
+    transition:border-color .25s, color .25s, background .25s;
+  }
+
+  .tracker #count{
+    font-weight:800;
+    font-size:1rem;
+    color:var(--accent);
+  }
+
+  .tracker.done{
+    border-color:rgba(77,226,194,.6);
+    background:rgba(77,226,194,.12);
+    color:var(--accent);
+  }
+
+  .tracker.done #count{ color:#fff; }
+
+  .tracker.shake{ animation:shake .4s ease; }
+
+  @keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    25%{ transform:translateX(-6px); }
+    50%{ transform:translateX(6px); }
+    75%{ transform:translateX(-4px); }
+  }
+
+  #reset{
+    font:inherit;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    background:transparent;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 12px;
+    cursor:pointer;
+    transition:.2s;
+  }
+
+  #reset:hover{
+    color:var(--accent);
+    border-color:var(--accent);
+    background:rgba(77,226,194,.1);
+  }
+
+  .progress{
+    height:8px;
+    margin:12px 0 34px;
+    border-radius:999px;
+    background:#1a2440;
+    overflow:hidden;
+  }
+
+  .progress > i{
+    display:block;
+    height:100%;
+    width:0;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+    transition:width .35s ease;
+  }
+
+  /* ---------- GROUPS ---------- */
+  .group{ margin-bottom:38px; }
+
+  .group-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:0 0 16px;
+    font-size:.85rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .chip{
+    flex:0 0 auto;
+    padding:3px 10px;
+    border-radius:999px;
+    background:rgba(123,140,255,.16);
+    color:#aab6ff;
+    font-size:.68rem;
+    letter-spacing:.1em;
+  }
+
+  /* ---------- TOPIC CARDS ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));
+    gap:12px;
+  }
+
+  .topic{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+    padding:15px 16px;
+    font:inherit;
+    font-size:.95rem;
+    text-align:left;
+    color:var(--text);
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border:1px solid var(--line);
+    border-radius:14px;
+    cursor:pointer;
+    transition:transform .18s ease, border-color .18s ease,
+               box-shadow .18s ease, background .18s ease;
+  }
+
+  .topic:hover{
+    transform:translateY(-4px);
+    border-color:var(--accent);
+    background:linear-gradient(180deg, #1b2848, #141d36);
+    box-shadow:0 14px 28px -16px rgba(77,226,194,.75),
+               0 0 0 1px rgba(77,226,194,.25) inset;
+  }
+
+  .topic:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .num{
+    flex:0 0 auto;
+    display:grid;
+    place-items:center;
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    background:rgba(123,140,255,.14);
+    color:#aab6ff;
+    font-size:.78rem;
+    font-weight:800;
+    letter-spacing:.04em;
+    transition:.18s;
+  }
+
+  .topic:hover .num{
+    background:var(--accent);
+    color:#06121a;
+  }
+
+  .title{
+    flex:1 1 auto;
+    line-height:1.45;
+  }
+
+  .check{
+    flex:0 0 auto;
+    display:grid;
+    place-items:center;
+    width:22px;
+    height:22px;
+    border:2px solid var(--line);
+    border-radius:50%;
+    transition:.18s;
+  }
+
+  .check::after{
+    content:"✓";
+    font-size:.75rem;
+    font-weight:900;
+    color:#06121a;
+    opacity:0;
+    transform:scale(.4);
+    transition:.18s;
+  }
+
+  .topic:hover .check{ border-color:var(--accent); }
+
+  /* selected state */
+  .topic.selected{
+    border-color:var(--accent-2);
+    background:linear-gradient(180deg, rgba(123,140,255,.22), rgba(17,26,48,.95));
+    box-shadow:0 0 0 1px rgba(123,140,255,.45) inset;
+  }
+
+  .topic.selected .num{
+    background:var(--accent-2);
+    color:#06121a;
+  }
+
+  .topic.selected .check{
+    background:var(--accent-2);
+    border-color:var(--accent-2);
+  }
+
+  .topic.selected .check::after{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  .hint{
+    margin:0 0 26px;
+    font-size:.85rem;
+    color:var(--muted);
+  }
+
+  footer{
+    margin-top:52px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    text-align:center;
+    font-size:.8rem;
+    color:#6f7fa5;
+    letter-spacing:.05em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    .topic:hover{ transform:none; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="project-container">
-        <!-- Project title -->
-        <h1>Digital Age Reflections</h1>
+<div class="page">
 
-        <!--
-            IMAGE PLACEHOLDER
-            Save your generated image as:
-            Digital-Age-Reflections-Poster.png
+  <header class="hero">
+    <p class="kicker">Unit 3 &amp; Unit 4 · Independent Project</p>
+    <h1>Technology Current Events<br>Reflection Compilation</h1>
 
-            Keep the same filename in both href and src below.
-            The href filename is what you click to open the image.
-        -->
-        <a href="Digital-Age-Reflections-Poster.png"
-           class="image-link"
-           target="_blank"
-           title="Digital Age Reflections – project image">
-            <img src="img/Digital-Age-Reflections-Poster.png"
-                 alt="Digital Age Reflections visual">
-        </a>
+    <!-- RESPONSIVE IMAGE AFTER THE TITLE -->
+    <figure class="image-placeholder">
+      <span class="image-icon" aria-hidden="true">🖼️</span>
+      <span class="image-fallback">Project image</span>
+      <img
+        src="/img/Digital-Age-Reflections-Poster.png"
+        alt="Digital Age Reflections poster"
+        loading="eager"
+        decoding="async"
+        onerror="this.style.display='none'">
+    </figure>
 
-        <!-- Introduction -->
-        <div class="introduction">
-            <strong>Digital Age Reflections</strong> explores how technology
-            reshapes identity, memory, and human connection.
-            This collection brings together student works that critically
-            examine our digital lives — from social media
-            and AI to the subtle ways our devices change the way we think
-            and relate. Each reflection is a snapshot of
-            a generation navigating the blur between the real and the
-            virtual.
-        </div>
+    <p class="lede">
+      This project is designed for you to complete independently. You will become a
+      <strong>Technology Analyst</strong>. Your task is to read real-world news, clip it,
+      and reflect on how technology is changing our world, our society, and your future career.
+    </p>
+  </header>
 
-        <div class="requirement">
-            Because your second semester is very busy with university
-            entrance exam preparation, this project is designed for you
-            to complete independently. You will become a Technology
-            Analyst. Your task is to read real-world news, clip it, and
-            reflect on how technology is changing our world, our
-            society, and your future career.
-        </div>
+  <section class="task">
+    <h2>What you need to do</h2>
+    <p>
+      You must complete <strong>10 separate news clippings</strong>. Each clipping must relate to
+      one of the topics listed below. <strong>You cannot choose the same topic twice.</strong>
+      This compilation specifically covers the topics we are studying in
+      <strong>Unit 3</strong> (Internet of Things and Immersive Tech) and
+      <strong>Unit 4</strong> (Digital Citizenship, Law, and Careers).
+    </p>
+  </section>
 
-        <p><strong>TOPICS TO CHOOSE FROM</strong></p>
-
-        <ul class="topics-list">
-            <li class="ex-list-point">Internet of Things and Immersive Tech</li>
-            <li class="ex-list-point">Introduction to IoT: Connecting the Physical and Digital Worlds</li>
-            <li class="ex-list-point">IoT Components: Sensors, Microcontrollers, and Gateways</li>
-            <li class="ex-list-point">Building a Smart Classroom with Temperature and Light Sensors</li>
-            <li class="ex-list-point">IoT Alert Systems and Automated Light Control</li>
-            <li class="ex-list-point">Controlling Devices Remotely via MQTT</li>
-            <li class="ex-list-point">Designing a Smart School System</li>
-            <li class="ex-list-point">Introduction to AR and VR</li>
-            <li class="ex-list-point">AR in the Real World: Measuring Spaces</li>
-            <li class="ex-list-point">DIY Virtual Reality and Google Cardboard</li>
-            <li class="ex-list-point">Exploring the World with Google Street View VR</li>
-            <li class="ex-list-point">Digital Citizenship, Law, and Careers</li>
-            <li class="ex-list-point">What is a Digital Citizen and Introduction to DQ</li>
-            <li class="ex-list-point">Navigating Online Threats: Cyberbullying, Scams, and Misinformation</li>
-            <li class="ex-list-point">Analyzing the Computer Crimes Act in Thailand</li>
-            <li class="ex-list-point">Copyright, Fair Use, and Creative Commons</li>
-            <li class="ex-list-point">Case Studies in Cyber Ethics</li>
-            <li class="ex-list-point">The Future of Work and How Technology Changes Careers</li>
-            <li class="ex-list-point">AI vs. Human: Which Jobs Will Be Replaced?</li>
-            <li class="ex-list-point">Planning Your Future and Skills Needed for the Digital Economy</li>
-            <li class="ex-list-point">My Future in a Tech-Driven World</li>
-
-            <li class="ex-list-inside">
-                <i>
-                    Choose a topic from the list above and find a current news article,
-                    online article, or magazine clipping related to it.
-                    The news must be current (from the past 6 months).
-                </i>
-            </li>
-        </ul>
-
-        <!-- Student PDF links (5 digits, open in new tab) -->
-        <div class="student-heading">
-            📚 Student reflections <span>PDF</span>
-        </div>
-
-        <div class="student-links">
-            <!--
-                Each link uses a 5-digit student number.
-                PDF filenames follow the pattern: 12345.pdf
-                Replace / add the numbers as needed.
-
-                They open in a new browser tab so the user can
-                scroll, read, then close the tab and return here.
-            -->
-            <a href="12345.pdf" class="student-btn" target="_blank" rel="noopener noreferrer">12345</a>
-            <a href="23456.pdf" class="student-btn" target="_blank" rel="noopener noreferrer">23456</a>
-            <a href="34567.pdf" class="student-btn" target="_blank" rel="noopener noreferrer">34567</a>
-            <a href="45678.pdf" class="student-btn" target="_blank" rel="noopener noreferrer">45678</a>
-            <a href="56789.pdf" class="student-btn" target="_blank" rel="noopener noreferrer">56789</a>
-
-            <!-- Add more 5-digit student links here if needed -->
-        </div>
-
-        <div class="footer-note">
-            Click any 5-digit number → PDF opens in a new tab.<br>
-            Scroll to read, then close the tab to return.
-        </div>
+  <section class="topics">
+    <div class="topics-head">
+      <h2>Topics to choose from</h2>
+      <div class="tracker" id="tracker">
+        <span><span id="count">0</span> / 10 selected</span>
+        <button id="reset" type="button">Reset</button>
+      </div>
     </div>
+
+    <div class="progress"><i id="bar"></i></div>
+
+    <p class="hint">Tip: hover over a topic to highlight it, and click it to mark it as used in your compilation.</p>
+
+    <div id="topicsRoot"></div>
+  </section>
+
+  <footer>Technology Analyst · Current Events Reflection Compilation</footer>
+</div>
+
+<script>
+  /* ---------------- DATA ---------------- */
+  const GROUPS = [
+    {
+      unit: "Unit 3",
+      name: "Internet of Things &amp; Immersive Tech",
+      items: [
+        "Introduction to IoT: Connecting the Physical and Digital Worlds",
+        "IoT Components: Sensors, Microcontrollers, and Gateways",
+        "Building a Smart Classroom with Temperature and Light Sensors",
+        "IoT Alert Systems and Automated Light Control",
+        "Controlling Devices Remotely via MQTT",
+        "Designing a Smart School System",
+        "Introduction to AR and VR",
+        "AR in the Real World: Measuring Spaces",
+        "DIY Virtual Reality and Google Cardboard",
+        "Exploring the World with Google Street View VR"
+      ]
+    },
+    {
+      unit: "Unit 4",
+      name: "Digital Citizenship, Law &amp; Careers",
+      items: [
+        "What is a Digital Citizen? Introduction to DQ",
+        "Navigating Online Threats: Cyberbullying, Scams, and Misinformation",
+        "Analyzing the Computer Crimes Act in Thailand",
+        "Copyright, Fair Use, and Creative Commons",
+        "Case Studies in Cyber Ethics",
+        "The Future of Work and How Technology Changes Careers",
+        "AI vs. Human: Which Jobs Will Be Replaced?",
+        "Planning Your Future and Skills Needed for the Digital Economy",
+        "My Future in a Tech-Driven World"
+      ]
+    }
+  ];
+
+  const MAX = 10;
+
+  /* ---------------- BUILD THE LIST ---------------- */
+  const root     = document.getElementById('topicsRoot');
+  const countEl  = document.getElementById('count');
+  const barEl    = document.getElementById('bar');
+  const tracker  = document.getElementById('tracker');
+  const resetBtn = document.getElementById('reset');
+
+  const selected = new Set();
+  let index = 0;
+
+  GROUPS.forEach(group => {
+    const section = document.createElement('section');
+    section.className = 'group';
+
+    const heading = document.createElement('h3');
+    heading.className = 'group-title';
+
+    const chip = document.createElement('span');
+    chip.className = 'chip';
+    chip.textContent = group.unit;
+
+    const name = document.createElement('span');
+    name.innerHTML = group.name;
+
+    heading.append(chip, name);
+    section.appendChild(heading);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    group.items.forEach(titleText => {
+      index++;
+      const id = String(index);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'topic';
+      btn.dataset.id = id;
+      btn.setAttribute('aria-pressed', 'false');
+
+      const num = document.createElement('span');
+      num.className = 'num';
+      num.textContent = String(index).padStart(2, '0');
+
+      const title = document.createElement('span');
+      title.className = 'title';
+      title.textContent = titleText;
+
+      const check = document.createElement('span');
+      check.className = 'check';
+      check.setAttribute('aria-hidden', 'true');
+
+      btn.append(num, title, check);
+      btn.addEventListener('click', () => toggleTopic(btn));
+      grid.appendChild(btn);
+    });
+
+    section.appendChild(grid);
+    root.appendChild(section);
+  });
+
+  /* ---------------- INTERACTION ---------------- */
+  function toggleTopic(btn) {
+    const id = btn.dataset.id;
+
+    if (selected.has(id)) {
+      selected.delete(id);
+      btn.classList.remove('selected');
+      btn.setAttribute('aria-pressed', 'false');
+    } else {
+      if (selected.size >= MAX) {
+        flashTracker();
+        return;
+      }
+      selected.add(id);
+      btn.classList.add('selected');
+      btn.setAttribute('aria-pressed', 'true');
+    }
+    updateTracker();
+  }
+
+  function updateTracker() {
+    const n = selected.size;
+    countEl.textContent = n;
+    barEl.style.width = (n / MAX * 100) + '%';
+    tracker.classList.toggle('done', n === MAX);
+  }
+
+  function flashTracker() {
+    tracker.classList.remove('shake');
+    void tracker.offsetWidth;
+    tracker.classList.add('shake');
+    setTimeout(() => tracker.classList.remove('shake'), 450);
+  }
+
+  resetBtn.addEventListener('click', () => {
+    selected.clear();
+    document.querySelectorAll('.topic.selected').forEach(el => {
+      el.classList.remove('selected');
+      el.setAttribute('aria-pressed', 'false');
+    });
+    updateTracker();
+  });
+
+  updateTracker();
+</script>
 
 </body>
 </html>
